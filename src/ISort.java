@@ -42,31 +42,17 @@ public class ISort {
     public static void insertionSort(int[] nums, boolean debug) {
         if (debug)
             debugPrint(nums, 0, -1);
+
         for (int i = 1; i < nums.length; i++) {
-            int slideIndex = i;
+            int slideIndex = i - 1;
 
-            while (slideIndex >= -1) {
-                if (debug && i != slideIndex)
+            if (debug)
+                debugPrint(nums, i, slideIndex);
+
+            while (slideIndex > -1 && nums[i] < nums[slideIndex]) {
+                slideIndex--;
+                if (debug)
                     debugPrint(nums, i, slideIndex);
-
-                if (slideIndex > 0 && nums[i] < nums[slideIndex - 1]) {
-                    slideIndex--;
-                } else if (slideIndex == 0) {
-                    if (debug && i != slideIndex)
-                        debugPrint(nums, i, slideIndex);
-                    break;
-                } else if (slideIndex == -1) {
-                    break;
-                } else if (slideIndex > 0 && nums[i] >= nums[slideIndex - 1]) {
-                    if (debug && i != slideIndex)
-                        debugPrint(nums, i, slideIndex - 1);
-                    break;
-                }
-                if (slideIndex == 0) {
-                    if (debug && i != slideIndex)
-                        debugPrint(nums, i, slideIndex);
-                    slideIndex--;
-                }
             }
             slide(nums, i, slideIndex < 0 ? 0 : slideIndex);
         }
@@ -94,7 +80,6 @@ public class ISort {
             temp = nums[i];
             for (j = i; j > 0 && nums[i] < nums[j - 1]; j--)
                 nums[j] = nums[j - 1];
-
             nums[j] = temp;
         }
     }
