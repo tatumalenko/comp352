@@ -72,20 +72,6 @@ public class ISort {
         }
     }
 
-    // public static void insertionSort(int[] nums) {
-    // for (int i = 1; i < nums.length; i++) {
-    // int slideIndex = i;
-    // while (slideIndex >= -1) {
-    // if (slideIndex > 0 && nums[i] < nums[slideIndex - 1])
-    // slideIndex--;
-    // else if (slideIndex <= 0 || (slideIndex > 0 && nums[i] >= nums[slideIndex -
-    // 1]))
-    // break;
-    // }
-    // slide(nums, i, slideIndex < 0 ? 0 : slideIndex);
-    // }
-    // }
-
     public static void insertionSort(int[] nums) {
         for (int i = 1; i < nums.length; i++) {
             int slideIndex = i;
@@ -100,6 +86,17 @@ public class ISort {
         for (int i = curIndex; i > desIndex && i > 0; i--)
             nums[i] = nums[i - 1];
         nums[desIndex] = temp;
+    }
+
+    public static void insertionSort2(int[] nums) {
+        int j, temp;
+        for (int i = 1; i < nums.length; i++) {
+            temp = nums[i];
+            for (j = i; j > 0 && nums[i] < nums[j - 1]; j--)
+                nums[j] = nums[j - 1];
+
+            nums[j] = temp;
+        }
     }
 
     public static void debugPrint(int[] nums, int i, int j) {

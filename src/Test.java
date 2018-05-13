@@ -21,7 +21,9 @@ import java.util.Random;
  */
 public class Test {
     public static void main(String[] args) {
-        int[] ns = IntStream.iterate(10, n -> n + 10).limit(100).toArray();
+        int[] ns = IntStream.iterate(10, n -> n + 10).limit(1000).toArray();
+        // for (int n : ns)
+        // System.out.println(n);
 
         // int[] nums = { 47, 39, 86, 1, 93, 20, 63, 73, 15, 2 };
         // ISort.insertionSort(nums);
@@ -38,7 +40,7 @@ public class Test {
                 nums3[i] = nums[i];
 
             // WORST CASE
-            // Arrays.sort(nums3, Collections.reverseOrder());
+            Arrays.sort(nums3, Collections.reverseOrder());
             // BEST CASE
             // Arrays.sort(nums3);
 
@@ -47,7 +49,7 @@ public class Test {
             // System.out.println(Arrays.toString(nums2));
 
             long startTime = System.nanoTime(); // record the starting time
-            ISort.insertionSort(nums2);
+            ISort.insertionSort2(nums2);
             long endTime = System.nanoTime(); // record the ending time
             long elapsed = endTime - startTime; // compute the elapsed time
             System.out.println(elapsed);
