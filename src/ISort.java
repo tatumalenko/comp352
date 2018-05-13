@@ -44,44 +44,32 @@ public class ISort {
             debugPrint(nums, 0, -1);
 
         for (int i = 1; i < nums.length; i++) {
-            int slideIndex = i - 1;
+            int slideIndex = i;
 
-            if (debug)
+            if (debug && i != slideIndex)
                 debugPrint(nums, i, slideIndex);
+            // System.out.println(Arrays.toString(nums));
 
-            while (slideIndex > -1 && nums[i] < nums[slideIndex]) {
+            while (slideIndex > 0 && nums[i] < nums[slideIndex - 1]) {
                 slideIndex--;
-                if (debug)
+                // if (nums[i] == 12)
+                // System.out.println("nums[i]=12, slideIndex=" + slideIndex);
+
+                if (debug && i != slideIndex)
                     debugPrint(nums, i, slideIndex);
             }
-            slide(nums, i, slideIndex < 0 ? 0 : slideIndex);
-        }
-    }
+            if (slideIndex > 0 && nums[i] > nums[slideIndex - 1] && debug && i != slideIndex || slideIndex == 0)
+                debugPrint(nums, i, slideIndex - 1);
 
-    public static void insertionSort(int[] nums) {
-        for (int i = 1; i < nums.length; i++) {
-            int slideIndex = i;
-            while (slideIndex > 0 && nums[i] < nums[slideIndex - 1])
-                slideIndex--;
             slide(nums, i, slideIndex < 0 ? 0 : slideIndex);
         }
     }
 
     public static void slide(int[] nums, int curIndex, int desIndex) {
         int temp = nums[curIndex];
-        for (int i = curIndex; i > desIndex && i > 0; i--)
+        for (int i = curIndex; i > desIndex; i--)
             nums[i] = nums[i - 1];
         nums[desIndex] = temp;
-    }
-
-    public static void insertionSort2(int[] nums) {
-        int j, temp;
-        for (int i = 1; i < nums.length; i++) {
-            temp = nums[i];
-            for (j = i; j > 0 && nums[i] < nums[j - 1]; j--)
-                nums[j] = nums[j - 1];
-            nums[j] = temp;
-        }
     }
 
     public static void debugPrint(int[] nums, int i, int j) {

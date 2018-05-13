@@ -49,7 +49,7 @@ public class Test {
             // System.out.println(Arrays.toString(nums2));
 
             long startTime = System.nanoTime(); // record the starting time
-            ISort.insertionSort2(nums2);
+            ISort.insertionSort(nums2, false);
             long endTime = System.nanoTime(); // record the ending time
             long elapsed = endTime - startTime; // compute the elapsed time
             System.out.println(elapsed);
