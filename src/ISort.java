@@ -25,7 +25,7 @@ public class ISort {
     public static void main(String[] args) {
         boolean debugFlagOn = false;
         ArrayList<String> list = new ArrayList<>(Arrays.asList(args));
-        if (list.contains("debug")) {
+        if (list.contains("debug")) { // Parse for optional cmd-line flag
             list.remove("debug");
             debugFlagOn = true;
         }
@@ -40,21 +40,19 @@ public class ISort {
     }
 
     public static void insertionSort(int[] nums, boolean debug) {
+        // Takes care of initial print at index i = 0
         if (debug)
             debugPrint(nums, 0, -1);
 
+        // Perform outer loop of insertion sort checks
         for (int i = 1; i < nums.length; i++) {
-            int slideIndex = i;
+            int slideIndex = i; // Keep track of index to insert at
 
             if (debug && i != slideIndex)
                 debugPrint(nums, i, slideIndex);
-            // System.out.println(Arrays.toString(nums));
 
             while (slideIndex > 0 && nums[i] < nums[slideIndex - 1]) {
                 slideIndex--;
-                // if (nums[i] == 12)
-                // System.out.println("nums[i]=12, slideIndex=" + slideIndex);
-
                 if (debug && i != slideIndex)
                     debugPrint(nums, i, slideIndex);
             }
@@ -75,25 +73,23 @@ public class ISort {
     public static void debugPrint(int[] nums, int i, int j) {
         String[] str = new String[nums.length + 1];
         for (int k = 0; k < nums.length; k++) {
-            if (k == i && k == j) {
+            if (k == i && k == j)
                 str[k] = "[" + nums[k] + "]";
-            } else if (k == i) {
+            else if (k == i)
                 str[k] = "[" + nums[k] + "]";
-            } else if (k == j) {
+            else if (k == j)
                 str[k] = "i" + nums[k] + "i";
-            } else {
+            else
                 str[k] = Integer.toString(nums[k]);
-            }
         }
         if (j == -1) {
             str[nums.length] = "|";
-        } else if (nums[i] == nums[j]) {
+        } else if (nums[i] == nums[j])
             str[nums.length] = "=";
-        } else if (nums[i] > nums[j]) {
+        else if (nums[i] > nums[j])
             str[nums.length] = ">";
-        } else if (nums[i] < nums[j]) {
+        else if (nums[i] < nums[j])
             str[nums.length] = "<";
-        }
         System.out.println(String.join(" ", str));
     }
 }
