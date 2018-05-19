@@ -4,7 +4,7 @@
 // Written by: Tatum Alenko (40055122)
 // Description:  This class implements a basic Insertion Sort algorithm using a 
 // proper 'slide' shift technique (as opposed to the ubiquitous 
-// 'shifting' implementation.
+// 'sifting' implementation.
 // -----------------------------------------------------
 
 import java.util.Arrays;
@@ -13,14 +13,6 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
-/**
- * Names and IDs Tatum Alenko (40055122) <br>
- * Course COMP352 <br>
- * Assignment #1 <br>
- * Due Date May 15, 2018 <br>
- * This class implements a basic Insertion Sort algorithm using a proper 'slide'
- * shift technique (as opposed to the ubiquitous 'shifting' implementation.
- */
 public class ISort {
     public static void main(String[] args) {
         boolean debugFlagOn = false;
@@ -31,10 +23,10 @@ public class ISort {
         }
         int[] nums = Arrays.stream(list.toArray(new String[0])).mapToInt(Integer::parseInt).toArray();
         insertionSort(nums, debugFlagOn);
-        long startTime = System.nanoTime(); // record the starting time
-        insertionSort(nums, false);
-        long endTime = System.nanoTime(); // record the ending time
-        long elapsed = endTime - startTime; // compute the elapsed time
+        long startTime = System.nanoTime(); // Record the starting time
+        insertionSort(nums, false); // Call the algorithm without debug output for run time
+        long endTime = System.nanoTime(); // Record the ending time
+        long elapsed = endTime - startTime; // Compute the elapsed time
         System.out.println(IntStream.of(nums).mapToObj(i -> String.valueOf(i)).collect(Collectors.joining(" ")));
         System.out.println("completed in " + elapsed + "ns");
     }
@@ -51,14 +43,17 @@ public class ISort {
             if (debug && i != slideIndex)
                 debugPrint(nums, i, slideIndex);
 
+            // Perform iterations until position of insert `slideIndex` is found
             while (slideIndex > 0 && nums[i] < nums[slideIndex - 1]) {
                 slideIndex--;
                 if (debug && i != slideIndex)
                     debugPrint(nums, i, slideIndex);
             }
-            if (slideIndex > 0 && nums[i] > nums[slideIndex - 1] && debug && i != slideIndex || slideIndex == 0)
+            if (slideIndex > 0 && nums[i] > nums[slideIndex - 1] && debug && i != slideIndex
+                    || (slideIndex == 0 && debug))
                 debugPrint(nums, i, slideIndex - 1);
 
+            // Call the slide/swap method to perform the insert + slide
             slide(nums, i, slideIndex < 0 ? 0 : slideIndex);
         }
     }
