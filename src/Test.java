@@ -8,7 +8,6 @@
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
-// import java.util.stream.IntegerStream;
 import java.util.Collections;
 import java.util.Random;
 
@@ -21,39 +20,38 @@ import java.util.Random;
  */
 public class Test {
     public static void main(String[] args) {
-        int[] ns = IntStream.iterate(10, n -> n + 10).limit(1000).toArray();
-        // for (int n : ns)
-        // System.out.println(n);
-
-        // int[] nums = { 47, 39, 86, 1, 93, 20, 63, 73, 15, 2 };
-        // ISort.insertionSort(nums);
-        // System.out.println(Arrays.toString(nums));
-
-        // System.out.println(Arrays.toString(ns));
+        int[] ns = IntStream.iterate(10, n -> n + 10).limit(100).toArray();
 
         for (int n : ns) {
-            // RANDOM CASE (don't sort later)
-            int[] nums = IntStream.generate(() -> new Random().nextInt(100) + 0).limit(n).toArray();
+            long[] trials = new long[3000];
 
-            Integer[] nums3 = new Integer[nums.length];
-            for (int i = 0; i < nums.length; i++)
-                nums3[i] = nums[i];
+            for (int trial = 1; trial < trials.length; trial++) {
+                // RANDOM CASE (don't sort later)
+                int[] nums = IntStream.generate(() -> new Random().nextInt(100) + 0).limit(n).toArray();
 
-            // WORST CASE
-            Arrays.sort(nums3, Collections.reverseOrder());
-            // BEST CASE
-            // Arrays.sort(nums3);
+                Integer[] nums3 = new Integer[nums.length];
+                for (int i = 0; i < nums.length; i++)
+                    nums3[i] = nums[i];
 
-            int[] nums2 = Arrays.stream(nums3).mapToInt(Integer::intValue).toArray();
+                // WORST CASE
+                // Arrays.sort(nums3, Collections.reverseOrder());
+                // BEST CASE
+                // Arrays.sort(nums3);
 
-            // System.out.println(Arrays.toString(nums2));
+                int[] nums2 = Arrays.stream(nums3).mapToInt(Integer::intValue).toArray();
 
-            long startTime = System.nanoTime(); // record the starting time
-            ISort.insertionSort(nums2, false);
-            long endTime = System.nanoTime(); // record the ending time
-            long elapsed = endTime - startTime; // compute the elapsed time
-            System.out.println(elapsed);
-            // System.exit(0);
+                long startTime = System.nanoTime(); // record the starting time
+                ISort.insertionSort(nums2, false);
+                long endTime = System.nanoTime(); // record the ending time
+                long elapsed = endTime - startTime; // compute the elapsed time
+                trials[trial] = elapsed;
+            }
+
+            long average = 0;
+            for (long time : trials)
+                average += time;
+            average /= trials.length;
+            System.out.println(n + " " + average);
         }
     }
 }
